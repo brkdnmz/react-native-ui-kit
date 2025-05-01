@@ -18,7 +18,6 @@ import {
 } from "react-native-unistyles";
 import { ButtonText } from "./button-text";
 
-// style should not be function due to AnimatedPressable's restriction
 export type ButtonProps = PressableProps & { style?: StyleProp<ViewStyle> } & {
   title?: string;
   icon?: React.ReactNode;
@@ -50,6 +49,7 @@ export function Button({
   }));
 
   const gesture = Gesture.LongPress()
+    .enabled(!props.disabled)
     .onBegin(() => {
       opacity.value = 0.6;
       scale.value = 0.9;
@@ -63,14 +63,13 @@ export function Button({
 
   return (
     <GestureDetector gesture={gesture}>
-      <Pressable {...props}>
+      <Pressable
+        {...props}
+        style={null}
+      >
         {/* Scaling interrupts onPress when pressed very close to the button edges, hence the extra View inside */}
         <Animated.View
-          style={[
-            styles.button(!!props.disabled),
-            !props.disabled && animatedStyles,
-            props.style,
-          ]}
+          style={[styles.button(!!props.disabled), animatedStyles, props.style]}
         >
           {icon && (
             <ButtonText
