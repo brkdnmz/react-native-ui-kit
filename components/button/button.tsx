@@ -100,6 +100,8 @@ const stylesheet = createStyleSheet((theme, rt) => ({
   button: (disabled: boolean) => ({
     justifyContent: "center",
     alignItems: "center",
+    borderWidth: rt.hairlineWidth,
+    borderColor: "transparent",
     variants: {
       type: {
         filled: {
@@ -109,14 +111,11 @@ const stylesheet = createStyleSheet((theme, rt) => ({
         },
         outlined: {
           backgroundColor: theme.colors.background,
-          borderWidth: rt.hairlineWidth,
           borderColor: !disabled
             ? theme.colors.primary
             : theme.colors.surfaceDisabled,
         },
-        text: {
-          backgroundColor: "transparent",
-        },
+        text: {},
       },
       size: {
         xs: {
